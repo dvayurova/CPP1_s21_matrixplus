@@ -111,7 +111,7 @@ S21Matrix::S21Matrix(S21Matrix &&other) noexcept
   printf("\n it's move constructor"); // УДАЛИИИИТЬ
 }
 
-S21Matrix &S21Matrix::operator=(S21Matrix &&other) {
+S21Matrix &S21Matrix::operator=(S21Matrix &&other) noexcept {
   if (this != &other) {
     printf("\n it's moved operator"); // УДАЛИИИИТЬ
     DeleteMatrix();
@@ -132,4 +132,26 @@ S21Matrix::~S21Matrix() {
   this->matrix_ = nullptr;
   this->cols_ = 0;
   this->rows_ = 0;
+}
+
+int S21Matrix::EqualSize(const S21Matrix &other) {
+  int res = 0;
+  if (this->rows_ == other.rows_ && this->cols_ == other.cols_)
+    res = 1;
+  return res;
+}
+
+void S21Matrix::SumMatrix(const S21Matrix &other) {
+  printf("\n EqualSize = %d", this->EqualSize(other));
+  if (!this->EqualSize(other)) {
+    throw "different size of matrices";
+  }
+  if (this->matrix_ == nullptr || other.matrix_ == nullptr) {
+    throw "matrix doesn't exist";
+  }
+  for (int i = 0; i < this->rows_; i++) {
+    for (int j = 0; j < this->cols_; j++) {
+      this->matrix_[i][j] += other.matrix_[i][j];
+    }
+  }
 }

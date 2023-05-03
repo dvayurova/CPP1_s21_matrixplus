@@ -53,5 +53,14 @@ int main() {
   printf("\nSET COLS\n move_matrix_operatr cols = %d",
          move_matrix_operatr.getCols());
   move_matrix_operatr.printMatrix();
+
+  printf("\n SUM \n");
+  try {
+    move_matrix_operatr.SumMatrix(move_matrix);
+    move_matrix_operatr.printMatrix();
+  } catch (const char *exception) {
+    printf("\n error: %s\n", exception);
+  }
+
   return 0;
 }

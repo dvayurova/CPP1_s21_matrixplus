@@ -17,20 +17,22 @@ public:
   S21Matrix(S21Matrix &&other) noexcept;
 
   S21Matrix &operator=(const S21Matrix &other);
-  S21Matrix &operator=(S21Matrix &&other);
+  S21Matrix &operator=(S21Matrix &&other) noexcept;
 
   ~S21Matrix();
 
-  // void SumMatrix(const S21Matrix &other);
+  void SumMatrix(const S21Matrix &other);
   // Other methods..
   int getRows();
   int getCols();
   void setRows(int rows);
   void setCols(int cols);
 
+  // sub funcs
   void NewMatrix(int rows, int cols);
   void CopyMatrix(double **matrix);
   void DeleteMatrix();
+  int EqualSize(const S21Matrix &other);
 
   double getElem(int i, int j); //  временная функция
   void setElem(int i, int j, double value); // временная функция
