@@ -1,6 +1,8 @@
 #ifndef SRC_S21_MATRIX_OOP_H_
 #define SRC_S21_MATRIX_OOP_H_
 
+#include <algorithm>
+#include <utility>
 
 class S21Matrix {
 private:
@@ -9,10 +11,10 @@ private:
   double **matrix_; // Pointer to the memory where the matrix is allocated
 
 public:
-  explicit S21Matrix();                   // Default constructor
+  S21Matrix();                            // Default constructor
   explicit S21Matrix(int rows, int cols); // Parameterized constructor
-  // S21Matrix(const S21Matrix &other);      // copy constructor
-  // S21Matrix(S21Matrix &&other);           // Transfer constructor
+  S21Matrix(const S21Matrix &other);      // copy constructor
+  S21Matrix(S21Matrix &&other) noexcept;  // Move constructor
 
   ~S21Matrix(); // Destructor
 
@@ -23,7 +25,9 @@ public:
   // void setRows(int rows);
   // void setCols(int cols);
 
-  double getElem(int i, int j); // возможно временная функция
+  void newMatrix(int rows, int cols);
+  double getElem(int i, int j); //  временная функция
+  void setElem(int i, int j, double value); // временная функция
 };
 
 #endif // SRC_S21_MATRIX_OOP_H_
