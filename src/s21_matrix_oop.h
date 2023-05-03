@@ -11,23 +11,30 @@ private:
   double **matrix_; // Pointer to the memory where the matrix is allocated
 
 public:
-  S21Matrix();                            // Default constructor
-  explicit S21Matrix(int rows, int cols); // Parameterized constructor
-  S21Matrix(const S21Matrix &other);      // copy constructor
-  S21Matrix(S21Matrix &&other) noexcept;  // Move constructor
+  S21Matrix();
+  explicit S21Matrix(int rows, int cols);
+  S21Matrix(const S21Matrix &other);
+  S21Matrix(S21Matrix &&other) noexcept;
 
-  ~S21Matrix(); // Destructor
+  S21Matrix &operator=(const S21Matrix &other);
+  S21Matrix &operator=(S21Matrix &&other);
+
+  ~S21Matrix();
 
   // void SumMatrix(const S21Matrix &other);
   // Other methods..
   int getRows();
   int getCols();
-  // void setRows(int rows);
-  // void setCols(int cols);
+  void setRows(int rows);
+  void setCols(int cols);
 
-  void newMatrix(int rows, int cols);
+  void NewMatrix(int rows, int cols);
+  void CopyMatrix(double **matrix);
+  void DeleteMatrix();
+
   double getElem(int i, int j); //  временная функция
   void setElem(int i, int j, double value); // временная функция
+  void printMatrix();
 };
 
 #endif // SRC_S21_MATRIX_OOP_H_
