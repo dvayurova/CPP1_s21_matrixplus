@@ -287,3 +287,23 @@ double S21Matrix::Determinant() {
   }
   return result;
 }
+
+S21Matrix S21Matrix::InverseMatrix() {
+  if (this->cols_ != this->rows_) {
+    throw "matrix is not square";
+  }
+  double det = this->Determinant();
+  if (fabs(det) < 1e-7) {
+    throw "determinant is zero";
+  }
+  S21Matrix matrix_calc;
+  S21Matrix result;
+  if (this->cols_ == 1) {
+    result.matrix_[0][0] = 1.0 / det;
+  } else {
+    matrix_calc = this->CalcComplements();
+    result = matrix_calc.Transpose();
+    result.MulNumber(1.0 / det);
+  }
+  return result;
+}

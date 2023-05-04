@@ -30,6 +30,7 @@ public:
   S21Matrix Transpose();
   S21Matrix CalcComplements();
   double Determinant();
+  S21Matrix InverseMatrix();
   // Other methods..
   int getRows();
   int getCols();

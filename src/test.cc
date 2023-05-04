@@ -158,5 +158,20 @@ int main() {
   S21Matrix matrix_compl = matrix_k.CalcComplements();
   matrix_compl.printMatrix();
 
+  printf("\n inverse matrix \n");
+  S21Matrix matrix_l(3, 3);
+  matrix_l.setElem(0, 0, 2);
+  matrix_l.setElem(0, 1, 5);
+  matrix_l.setElem(0, 2, 7);
+  matrix_l.setElem(1, 0, 6);
+  matrix_l.setElem(1, 1, 3);
+  matrix_l.setElem(1, 2, 4);
+  matrix_l.setElem(2, 0, 5);
+  matrix_l.setElem(2, 1, -2);
+  matrix_l.setElem(2, 2, -3);
+  matrix_l.printMatrix();
+  S21Matrix matrix_inverse = matrix_l.InverseMatrix();
+  matrix_inverse.printMatrix();
+
   return 0;
 }
