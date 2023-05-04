@@ -228,3 +228,47 @@ S21Matrix S21Matrix::Transpose() {
   }
   return result;
 }
+
+// S21Matrix S21Matrix::CalcComplements() { S21Matrix result; }
+
+double S21Matrix::determ_two() {
+  return this->matrix_[0][0] * this->matrix_[1][1] -
+         this->matrix_[1][0] * this->matrix_[0][1];
+}
+
+S21Matrix S21Matrix::minor_matr(int x, int y) {
+  S21Matrix minor_matrix(this->rows_ - 1, this->cols_ - 1);
+  for (int i = 0, m = 0; i < this->rows_; i++, m++) {
+    for (int j = 0, n = 0; j < this->cols_; j++, n++) {
+      if (i != x && j != y)
+        minor_matrix.matrix_[m][n] = this->matrix_[i][j];
+      if (j == y)
+        n--;
+    }
+    if (i == x)
+      m--;
+  }
+  return minor_matrix;
+}
+
+double S21Matrix::Determinant() {
+  if (this->cols_ != this->rows_) {
+    throw "matrix is not square";
+  }
+  double result = 0, temp_det = 0;
+  S21Matrix tmp_matrix(this->rows_ - 1, this->cols_ - 1);
+  if (this->rows_ == 1) {
+    result = this->matrix_[0][0];
+  } else if (this->rows_ == 2) {
+    result = determ_two();
+  } else {
+    for (int i = 0; i < this->rows_; i++) {
+      temp_det = 0;
+      tmp_matrix = minor_matr(i, 0);
+      temp_det = tmp_matrix.Determinant();
+      result = result + this->matrix_[i][0] * temp_det * (i % 2 == 0 ? 1 : -1);
+    }
+  }
+
+  return result;
+}

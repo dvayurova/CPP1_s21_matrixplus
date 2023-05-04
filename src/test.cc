@@ -119,5 +119,29 @@ int main() {
     printf("\n error: %s\n", exception);
   }
 
+  matrix_f.setCols(3);
+  matrix_f.printMatrix();
+  double det = matrix_f.Determinant();
+  printf("\n determinant = %f", det);
+
+  printf("\n matrix c:\n");
+  matrix_c.printMatrix();
+  double det_c = matrix_c.Determinant();
+  printf("\n determinant = %f", det_c);
+
+  S21Matrix matrix_i(3, 3);
+  matrix_i.setElem(0, 0, 1);
+  matrix_i.setElem(0, 1, 2);
+  matrix_i.setElem(0, 2, -4);
+  matrix_i.setElem(1, 0, 2);
+  matrix_i.setElem(1, 1, 3);
+  matrix_i.setElem(1, 2, 1);
+  matrix_i.setElem(2, 0, 3);
+  matrix_i.setElem(2, 1, -1);
+  matrix_i.setElem(2, 2, 2);
+  matrix_i.printMatrix();
+  double det_i = matrix_i.Determinant();
+  printf("\n determinant = %f", det_i);
+
   return 0;
 }

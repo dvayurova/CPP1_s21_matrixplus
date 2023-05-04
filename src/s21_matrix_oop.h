@@ -28,6 +28,8 @@ public:
   void MulNumber(const double num);
   void MulMatrix(const S21Matrix &other);
   S21Matrix Transpose();
+  // S21Matrix CalcComplements();
+  double Determinant();
   // Other methods..
   int getRows();
   int getCols();
@@ -39,6 +41,8 @@ public:
   void CopyMatrix(double **matrix);
   void DeleteMatrix();
   int EqualSize(const S21Matrix &other);
+  double determ_two();
+  S21Matrix minor_matr(int x, int y);
 
   double getElem(int i, int j); //  временная функция
   void setElem(int i, int j, double value); // временная функция
