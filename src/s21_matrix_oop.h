@@ -28,7 +28,7 @@ public:
   void MulNumber(const double num);
   void MulMatrix(const S21Matrix &other);
   S21Matrix Transpose();
-  // S21Matrix CalcComplements();
+  S21Matrix CalcComplements();
   double Determinant();
   // Other methods..
   int getRows();

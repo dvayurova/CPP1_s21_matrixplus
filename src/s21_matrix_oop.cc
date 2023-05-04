@@ -229,7 +229,23 @@ S21Matrix S21Matrix::Transpose() {
   return result;
 }
 
-// S21Matrix S21Matrix::CalcComplements() { S21Matrix result; }
+S21Matrix S21Matrix::CalcComplements() {
+  if (this->cols_ != this->rows_ || this->cols_ <= 1) {
+    throw "matrix is not square";
+  }
+  S21Matrix result(this->rows_, this->cols_);
+  S21Matrix minor_matrix(this->rows_ - 1, this->cols_ - 1);
+  double det = 0;
+  for (int i = 0; i < this->rows_; i++) {
+    for (int j = 0; j < this->cols_; j++) {
+      det = 0;
+      minor_matrix = minor_matr(i, j);
+      det = minor_matrix.Determinant();
+      result.matrix_[i][j] = det * pow(-1, i + j);
+    }
+  }
+  return result;
+}
 
 double S21Matrix::determ_two() {
   return this->matrix_[0][0] * this->matrix_[1][1] -
@@ -269,6 +285,5 @@ double S21Matrix::Determinant() {
       result = result + this->matrix_[i][0] * temp_det * (i % 2 == 0 ? 1 : -1);
     }
   }
-
   return result;
 }

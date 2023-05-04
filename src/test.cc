@@ -143,5 +143,20 @@ int main() {
   double det_i = matrix_i.Determinant();
   printf("\n determinant = %f", det_i);
 
+  printf("\n cal complements\n");
+  S21Matrix matrix_k(3, 3);
+  matrix_k.setElem(0, 0, 1);
+  matrix_k.setElem(0, 1, 2);
+  matrix_k.setElem(0, 2, 3);
+  matrix_k.setElem(1, 0, 0);
+  matrix_k.setElem(1, 1, 4);
+  matrix_k.setElem(1, 2, 2);
+  matrix_k.setElem(2, 0, 5);
+  matrix_k.setElem(2, 1, 2);
+  matrix_k.setElem(2, 2, 1);
+  matrix_k.printMatrix();
+  S21Matrix matrix_compl = matrix_k.CalcComplements();
+  matrix_compl.printMatrix();
+
   return 0;
 }
