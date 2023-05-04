@@ -17,10 +17,15 @@ public:
   S21Matrix(const S21Matrix &other);
   S21Matrix(S21Matrix &&other) noexcept;
 
-  S21Matrix &operator=(const S21Matrix &other);
-  S21Matrix &operator=(S21Matrix &&other) noexcept;
-
   ~S21Matrix();
+
+  // sub funcs
+  double determ_two();
+  void NewMatrix(int rows, int cols);
+  void CopyMatrix(double **matrix);
+  void DeleteMatrix();
+  int EqualSize(const S21Matrix &other);
+  S21Matrix minor_matr(int x, int y);
 
   bool EqMatrix(const S21Matrix &other);
   void SumMatrix(const S21Matrix &other);
@@ -31,20 +36,28 @@ public:
   S21Matrix CalcComplements();
   double Determinant();
   S21Matrix InverseMatrix();
-  // Other methods..
+
+  // accessors and mutators
   int getRows();
   int getCols();
   void setRows(int rows);
   void setCols(int cols);
 
-  // sub funcs
-  void NewMatrix(int rows, int cols);
-  void CopyMatrix(double **matrix);
-  void DeleteMatrix();
-  int EqualSize(const S21Matrix &other);
-  double determ_two();
-  S21Matrix minor_matr(int x, int y);
+  // operators
+  S21Matrix &operator=(const S21Matrix &other);
+  S21Matrix &operator=(S21Matrix &&other) noexcept;
+  S21Matrix operator+(const S21Matrix &other);
+  S21Matrix operator-(const S21Matrix &other);
+  S21Matrix operator*(const S21Matrix &other);
+  S21Matrix operator*(const double num);
+  bool operator==(const S21Matrix &other);
+  void operator+=(const S21Matrix &other);
+  void operator-=(const S21Matrix &other);
+  void operator*=(const S21Matrix &other);
+  void operator*=(const double num);
+  double operator()(int i, int j);
 
+  // ВРЕМЕННЫЕ ФУНКЦИИ!!!!!!
   double getElem(int i, int j); //  временная функция
   void setElem(int i, int j, double value); // временная функция
   void printMatrix();

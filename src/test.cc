@@ -173,5 +173,89 @@ int main() {
   S21Matrix matrix_inverse = matrix_l.InverseMatrix();
   matrix_inverse.printMatrix();
 
+  printf("\n + operator \n");
+  matrix_k.printMatrix();
+  matrix_l.printMatrix();
+  S21Matrix sum_oper_matrix = matrix_k + matrix_l;
+  printf("\n sum_oper_matrix: \n");
+  sum_oper_matrix.printMatrix();
+  printf("\n matrix k \n");
+  matrix_k.printMatrix();
+  printf("\n matrix l \n");
+  matrix_l.printMatrix();
+
+  printf("\n - operator \n");
+  matrix_k.printMatrix();
+  matrix_l.printMatrix();
+  S21Matrix sub_oper_matrix = matrix_k - matrix_l;
+  printf("\n sub_oper_matrix: \n");
+  sub_oper_matrix.printMatrix();
+  printf("\n matrix k \n");
+  matrix_k.printMatrix();
+  printf("\n matrix l \n");
+  matrix_l.printMatrix();
+
+  printf("\n * matrices operator \n");
+  matrix_k.printMatrix();
+  matrix_l.printMatrix();
+  S21Matrix mult_oper_matrix = matrix_k * matrix_l;
+  printf("\n mult_oper_matrix: \n");
+  mult_oper_matrix.printMatrix();
+  printf("\n matrix k \n");
+  matrix_k.printMatrix();
+  printf("\n matrix l \n");
+  matrix_l.printMatrix();
+
+  printf("\n * num operator \n");
+  matrix_l.printMatrix();
+  S21Matrix mult_num_oper_matrix = matrix_l * 1.5;
+  printf("\n mult_num_oper_matrix: \n");
+  mult_num_oper_matrix.printMatrix();
+  printf("\n matrix l \n");
+  matrix_l.printMatrix();
+
+  printf("\n Equal matrix operator \n");
+  S21Matrix matrix_m = createMatrix2(2, 3, 1.1234567);
+  S21Matrix matrix_n = createMatrix2(2, 3, 1.1234567);
+  if (matrix_m == matrix_n) {
+    printf("\n matrices are equal \n");
+  } else {
+    printf("\n matrices are not equal \n");
+  }
+
+  printf("\n +=  operator \n");
+  matrix_k.printMatrix();
+  matrix_l.printMatrix();
+  matrix_k += matrix_l;
+  printf("\n += operator: \n");
+  printf("\n matrix k (res) \n");
+  matrix_k.printMatrix();
+
+  printf("\n -=  operator \n");
+  matrix_k.printMatrix();
+  matrix_l.printMatrix();
+  matrix_k -= matrix_l;
+  printf("\n matrix k (res): ");
+  matrix_k.printMatrix();
+
+  printf("\n *= matrices operator \n");
+  matrix_k.printMatrix();
+  matrix_l.printMatrix();
+  matrix_k *= matrix_l;
+  printf("\n matrix k (res): ");
+  matrix_k.printMatrix();
+
+  printf("\n *= num operator \n");
+  matrix_k.printMatrix();
+  matrix_k *= 1.5;
+  printf("\n matrix k (res): ");
+  matrix_k.printMatrix();
+
+  printf("\n () index \n");
+  matrix_k.printMatrix();
+  printf("\n matrix k[0][0]: %f", matrix_k(0, 0));
+  printf("\n matrix k[1][1]: %f", matrix_k(1, 1));
+  printf("\n matrix k[2][2]: %f", matrix_k(2, 2));
+
   return 0;
 }

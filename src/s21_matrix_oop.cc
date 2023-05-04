@@ -307,3 +307,55 @@ S21Matrix S21Matrix::InverseMatrix() {
   }
   return result;
 }
+
+S21Matrix S21Matrix::operator+(const S21Matrix &other) {
+  S21Matrix result = *this;
+  result.SumMatrix(other);
+  return result;
+}
+
+S21Matrix S21Matrix::operator-(const S21Matrix &other) {
+  S21Matrix result = *this;
+  result.SubMatrix(other);
+  return result;
+}
+
+S21Matrix S21Matrix::operator*(const S21Matrix &other) {
+  S21Matrix result = *this;
+  result.MulMatrix(other);
+  return result;
+}
+
+S21Matrix S21Matrix::operator*(const double num) {
+  S21Matrix result = *this;
+  result.MulNumber(num);
+  return result;
+}
+
+bool S21Matrix::operator==(const S21Matrix &other) {
+  return this->EqMatrix(other);
+}
+
+void S21Matrix::operator+=(const S21Matrix &other) {
+  return this->SumMatrix(other);
+}
+
+void S21Matrix::operator-=(const S21Matrix &other) {
+  return this->SubMatrix(other);
+}
+
+void S21Matrix::operator*=(const S21Matrix &other) {
+  return this->MulMatrix(other);
+}
+
+void S21Matrix::operator*=(const double num) { return this->MulNumber(num); }
+
+double S21Matrix::operator()(int i, int j) {
+  if (this->matrix_ == nullptr) {
+    throw "not a matrix";
+  }
+  if (i >= this->rows_ || i < 0 || j >= this->cols_ || j < 0) {
+    throw "Incorrect input, index is out of range";
+  }
+  return this->matrix_[i][j];
+}
