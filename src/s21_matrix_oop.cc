@@ -218,3 +218,13 @@ void S21Matrix::MulMatrix(const S21Matrix &other) {
   }
   *this = std::move(result);
 }
+
+S21Matrix S21Matrix::Transpose() {
+  S21Matrix result(this->cols_, this->rows_);
+  for (int i = 0; i < this->cols_; i++) {
+    for (int j = 0; j < this->rows_; j++) {
+      result.matrix_[i][j] = this->matrix_[j][i];
+    }
+  }
+  return result;
+}

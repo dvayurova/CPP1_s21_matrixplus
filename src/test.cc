@@ -100,5 +100,24 @@ int main() {
     printf("\n matrices are not equal \n");
   }
 
+  printf("\n Transpose matrix \n");
+  printf("\n matrix e:\n");
+  matrix_e.printMatrix();
+  S21Matrix matrix_f = matrix_e.Transpose();
+  printf("\n matrix f (transpose):\n");
+  matrix_f.printMatrix();
+
+  try {
+    printf("\n Transpose matrix \n");
+    S21Matrix matrix_g;
+    matrix_g.setCols(2);
+    matrix_g.setRows(3);
+    S21Matrix matrix_h = matrix_g.Transpose();
+    printf("\n matrix f (transpose):\n");
+    matrix_h.printMatrix();
+  } catch (const char *exception) {
+    printf("\n error: %s\n", exception);
+  }
+
   return 0;
 }
