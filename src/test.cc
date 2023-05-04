@@ -80,11 +80,25 @@ int main() {
   copy_matrix.SubMatrix(move_matrix);
   copy_matrix.printMatrix();
 
-  printf("\n MULT \n");
+  printf("\n MULT matrix\n");
   S21Matrix matrix_a = createMatrix2(2, 3, 1.1234567);
   S21Matrix matrix_b = createMatrix2(3, 2, 56.987654321);
   matrix_a.MulMatrix(matrix_b);
   matrix_a.printMatrix();
+
+  printf("\n MULT num\n");
+  S21Matrix matrix_c = createMatrix2(4, 4, 1.1234567);
+  matrix_c.MulNumber(1.12345670);
+  matrix_c.printMatrix();
+
+  printf("\n Equal matrix \n");
+  S21Matrix matrix_d = createMatrix2(2, 3, 1.1234567);
+  S21Matrix matrix_e = createMatrix2(2, 3, 1.1234567);
+  if (matrix_d.EqMatrix(matrix_e) == true) {
+    printf("\n matrices are equal \n");
+  } else {
+    printf("\n matrices are not equal \n");
+  }
 
   return 0;
 }

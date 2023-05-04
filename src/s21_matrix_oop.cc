@@ -141,7 +141,24 @@ int S21Matrix::EqualSize(const S21Matrix &other) {
   return res;
 }
 
-// bool S21Matrix::EqMatrix(const S21Matrix &other) {}
+bool S21Matrix::EqMatrix(const S21Matrix &other) {
+  if (this->matrix_ == nullptr || other.matrix_ == nullptr) {
+    throw "matrix doesn't exist";
+  }
+  bool res = true;
+  if (this->EqualSize(other)) {
+    for (int i = 0; i < this->rows_; i++) {
+      for (int j = 0; j < this->cols_ &&
+                      (fabs(this->matrix_[i][j] - other.matrix_[i][j]) >= 1e-7);
+           j++) {
+        res = false;
+      }
+    }
+  } else {
+    res = false;
+  }
+  return res;
+}
 
 void S21Matrix::SumMatrix(const S21Matrix &other) {
   printf("\n EqualSize = %d", this->EqualSize(other));
@@ -172,7 +189,16 @@ void S21Matrix::SubMatrix(const S21Matrix &other) {
   }
 }
 
-// void S21Matrix::MulNumber(const double num) {}
+void S21Matrix::MulNumber(const double num) {
+  if (this->matrix_ == nullptr) {
+    throw "matrix doesn't exist";
+  }
+  for (int i = 0; i < this->rows_; i++) {
+    for (int j = 0; j < this->cols_; j++) {
+      this->matrix_[i][j] *= num;
+    }
+  }
+}
 
 void S21Matrix::MulMatrix(const S21Matrix &other) {
   if (this->matrix_ == nullptr || other.matrix_ == nullptr) {
