@@ -141,6 +141,8 @@ int S21Matrix::EqualSize(const S21Matrix &other) {
   return res;
 }
 
+// bool S21Matrix::EqMatrix(const S21Matrix &other) {}
+
 void S21Matrix::SumMatrix(const S21Matrix &other) {
   printf("\n EqualSize = %d", this->EqualSize(other));
   if (!this->EqualSize(other)) {
@@ -154,4 +156,39 @@ void S21Matrix::SumMatrix(const S21Matrix &other) {
       this->matrix_[i][j] += other.matrix_[i][j];
     }
   }
+}
+
+void S21Matrix::SubMatrix(const S21Matrix &other) {
+  if (!this->EqualSize(other)) {
+    throw "different size of matrices";
+  }
+  if (this->matrix_ == nullptr || other.matrix_ == nullptr) {
+    throw "matrix doesn't exist";
+  }
+  for (int i = 0; i < this->rows_; i++) {
+    for (int j = 0; j < this->cols_; j++) {
+      this->matrix_[i][j] -= other.matrix_[i][j];
+    }
+  }
+}
+
+// void S21Matrix::MulNumber(const double num) {}
+
+void S21Matrix::MulMatrix(const S21Matrix &other) {
+  if (this->matrix_ == nullptr || other.matrix_ == nullptr) {
+    throw "matrix doesn't exist";
+  }
+  if (this->cols_ != other.rows_) {
+    throw "the number of columns of the first matrix is not equal to the "
+          "number of rows of the second matrix";
+  }
+  S21Matrix result(this->rows_, other.cols_);
+  for (int i = 0; i < this->rows_; i++) {
+    for (int j = 0; j < other.cols_; j++) {
+      for (int k = 0; k < other.rows_; k++) {
+        result.matrix_[i][j] += this->matrix_[i][k] * other.matrix_[k][j];
+      }
+    }
+  }
+  *this = std::move(result);
 }

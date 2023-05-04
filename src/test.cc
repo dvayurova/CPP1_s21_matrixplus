@@ -11,6 +11,17 @@ S21Matrix createMatrix(int rows, int cols, double elem) {
   return tmp;
 }
 
+S21Matrix createMatrix2(int rows, int cols, double elem) {
+  S21Matrix tmp(rows, cols);
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      tmp.setElem(i, j, elem);
+      elem++;
+    }
+  }
+  return tmp;
+}
+
 int main() {
   S21Matrix orig_matrix(5, 6);
   printf("\n orig_matrix cols = %d", orig_matrix.getCols());
@@ -61,6 +72,19 @@ int main() {
   } catch (const char *exception) {
     printf("\n error: %s\n", exception);
   }
+
+  copy_matrix.SumMatrix(move_matrix);
+  copy_matrix.printMatrix();
+
+  printf("\n SUB \n");
+  copy_matrix.SubMatrix(move_matrix);
+  copy_matrix.printMatrix();
+
+  printf("\n MULT \n");
+  S21Matrix matrix_a = createMatrix2(2, 3, 1.1234567);
+  S21Matrix matrix_b = createMatrix2(3, 2, 56.987654321);
+  matrix_a.MulMatrix(matrix_b);
+  matrix_a.printMatrix();
 
   return 0;
 }
