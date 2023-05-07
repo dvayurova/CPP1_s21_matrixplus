@@ -6,26 +6,26 @@
 #include <utility>
 
 class S21Matrix {
-private:
+ private:
   // Attributes
-  int rows_, cols_; // Rows and columns
-  double **matrix_; // Pointer to the memory where the matrix is allocated
+  int rows_, cols_;  // Rows and columns
+  double **matrix_;  // Pointer to the memory where the matrix is allocated
+  // sub funcs
+  double determ_two();
+  void NewMatrix(int rows, int cols);
+  void CopyMatrix(double **matrix);
+  void ZeroMatrix();
+  void DeleteMatrix();
+  int EqualSize(const S21Matrix &other);
+  S21Matrix minor_matr(int x, int y);
 
-public:
+ public:
   S21Matrix();
   explicit S21Matrix(int rows, int cols);
   S21Matrix(const S21Matrix &other);
   S21Matrix(S21Matrix &&other) noexcept;
 
   ~S21Matrix();
-
-  // sub funcs
-  double determ_two();
-  void NewMatrix(int rows, int cols);
-  void CopyMatrix(double **matrix);
-  void DeleteMatrix();
-  int EqualSize(const S21Matrix &other);
-  S21Matrix minor_matr(int x, int y);
 
   bool EqMatrix(const S21Matrix &other);
   void SumMatrix(const S21Matrix &other);
@@ -38,10 +38,10 @@ public:
   S21Matrix InverseMatrix();
 
   // accessors and mutators
-  int getRows();
-  int getCols();
-  void setRows(int rows);
-  void setCols(int cols);
+  int GetRows();
+  int GetCols();
+  void SetRows(int rows);
+  void SetCols(int cols);
 
   // operators
   S21Matrix &operator=(const S21Matrix &other);
@@ -55,12 +55,7 @@ public:
   void operator-=(const S21Matrix &other);
   void operator*=(const S21Matrix &other);
   void operator*=(const double num);
-  double operator()(int i, int j);
-
-  // ВРЕМЕННЫЕ ФУНКЦИИ!!!!!!
-  double getElem(int i, int j); //  временная функция
-  void setElem(int i, int j, double value); // временная функция
-  void printMatrix();
+  double &operator()(int i, int j);
 };
 
-#endif // SRC_S21_MATRIX_OOP_H_
+#endif  // SRC_S21_MATRIX_OOP_H_

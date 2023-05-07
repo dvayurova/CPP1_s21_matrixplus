@@ -1,9 +1,8 @@
 #include "s21_matrix_oop.h"
-#include <cstdio>
 
-int S21Matrix::getRows() { return this->rows_; }
-int S21Matrix::getCols() { return this->cols_; }
-void S21Matrix::setRows(int rows) {
+int S21Matrix::GetRows() { return this->rows_; }
+int S21Matrix::GetCols() { return this->cols_; }
+void S21Matrix::SetRows(int rows) {
   if (rows <= 0) {
     throw "rows should be more than zero";
   }
@@ -15,7 +14,7 @@ void S21Matrix::setRows(int rows) {
   }
   *this = tmp;
 }
-void S21Matrix::setCols(int cols) {
+void S21Matrix::SetCols(int cols) {
   if (cols <= 0) {
     throw "rows should be more than zero";
   }
@@ -27,28 +26,6 @@ void S21Matrix::setCols(int cols) {
   }
   *this = tmp;
 }
-
-//    ВРЕМЕННЫЕ функции: начало
-double S21Matrix::getElem(int i, int j) {
-  if (this->matrix_ == nullptr)
-    return 0;
-  return this->matrix_[i][j];
-}
-void S21Matrix::setElem(int i, int j, double value) {
-  if (i < this->rows_ && j < this->cols_ && this->matrix_ != nullptr) {
-    this->matrix_[i][j] = value;
-  }
-}
-void S21Matrix::printMatrix() {
-  printf("\n matrix:\n");
-  for (int i = 0; i < this->rows_; i++) {
-    for (int j = 0; j < this->cols_; j++) {
-      printf("%f ", this->matrix_[i][j]);
-    }
-    printf("\n");
-  }
-}
-// конец временных функций
 
 void S21Matrix::NewMatrix(int rows, int cols) {
   this->rows_ = rows;
@@ -74,70 +51,60 @@ void S21Matrix::DeleteMatrix() {
   delete[] this->matrix_;
 }
 
-S21Matrix::S21Matrix() {
+void S21Matrix::ZeroMatrix() {
   this->rows_ = 0;
   this->cols_ = 0;
   this->matrix_ = nullptr;
 }
 
+S21Matrix::S21Matrix() { this->ZeroMatrix(); }
+
 S21Matrix::S21Matrix(int rows, int cols) {
   if (rows <= 0 && cols <= 0) {
     throw "rows/columns should be more than zero";
   }
-  NewMatrix(rows, cols);
+  this->NewMatrix(rows, cols);
 }
 
 S21Matrix::S21Matrix(const S21Matrix &other) {
-  NewMatrix(other.rows_, other.cols_);
-  CopyMatrix(other.matrix_);
-  printf("\n it's copy constructor"); // УДАЛИИИИТЬ
+  this->NewMatrix(other.rows_, other.cols_);
+  this->CopyMatrix(other.matrix_);
 }
 
 S21Matrix &S21Matrix::operator=(const S21Matrix &other) {
   if (this != &other) {
-    printf("\n it's copy operator"); // УДАЛИИИИТЬ
-    DeleteMatrix();
-    NewMatrix(other.rows_, other.cols_);
-    CopyMatrix(other.matrix_);
+    this->DeleteMatrix();
+    this->NewMatrix(other.rows_, other.cols_);
+    this->CopyMatrix(other.matrix_);
   }
   return *this;
 }
 
 S21Matrix::S21Matrix(S21Matrix &&other) noexcept
     : rows_(other.rows_), cols_(other.cols_), matrix_(other.matrix_) {
-  other.rows_ = 0;
-  other.cols_ = 0;
-  other.matrix_ = nullptr;
-  printf("\n it's move constructor"); // УДАЛИИИИТЬ
+  other.ZeroMatrix();
+  ;
 }
 
 S21Matrix &S21Matrix::operator=(S21Matrix &&other) noexcept {
   if (this != &other) {
-    printf("\n it's moved operator"); // УДАЛИИИИТЬ
-    DeleteMatrix();
+    this->DeleteMatrix();
     this->rows_ = other.rows_;
     this->cols_ = other.cols_;
     this->matrix_ = other.matrix_;
-    other.rows_ = 0;
-    other.cols_ = 0;
-    other.matrix_ = nullptr;
+    other.ZeroMatrix();
   }
   return *this;
 }
 
 S21Matrix::~S21Matrix() {
-  printf("\n it's destructor. cols = %d, rows = %d", cols_,
-         rows_); // УДАЛИИИИТЬ
-  DeleteMatrix();
-  this->matrix_ = nullptr;
-  this->cols_ = 0;
-  this->rows_ = 0;
+  this->DeleteMatrix();
+  this->ZeroMatrix();
 }
 
 int S21Matrix::EqualSize(const S21Matrix &other) {
   int res = 0;
-  if (this->rows_ == other.rows_ && this->cols_ == other.cols_)
-    res = 1;
+  if (this->rows_ == other.rows_ && this->cols_ == other.cols_) res = 1;
   return res;
 }
 
@@ -149,7 +116,7 @@ bool S21Matrix::EqMatrix(const S21Matrix &other) {
   if (this->EqualSize(other)) {
     for (int i = 0; i < this->rows_; i++) {
       for (int j = 0; j < this->cols_ &&
-                      (fabs(this->matrix_[i][j] - other.matrix_[i][j]) >= 1e-7);
+                      (fabs(this->matrix_[i][j] - other.matrix_[i][j]) >= 1e-6);
            j++) {
         res = false;
       }
@@ -161,7 +128,6 @@ bool S21Matrix::EqMatrix(const S21Matrix &other) {
 }
 
 void S21Matrix::SumMatrix(const S21Matrix &other) {
-  printf("\n EqualSize = %d", this->EqualSize(other));
   if (!this->EqualSize(other)) {
     throw "different size of matrices";
   }
@@ -256,13 +222,10 @@ S21Matrix S21Matrix::minor_matr(int x, int y) {
   S21Matrix minor_matrix(this->rows_ - 1, this->cols_ - 1);
   for (int i = 0, m = 0; i < this->rows_; i++, m++) {
     for (int j = 0, n = 0; j < this->cols_; j++, n++) {
-      if (i != x && j != y)
-        minor_matrix.matrix_[m][n] = this->matrix_[i][j];
-      if (j == y)
-        n--;
+      if (i != x && j != y) minor_matrix.matrix_[m][n] = this->matrix_[i][j];
+      if (j == y) n--;
     }
-    if (i == x)
-      m--;
+    if (i == x) m--;
   }
   return minor_matrix;
 }
@@ -272,12 +235,12 @@ double S21Matrix::Determinant() {
     throw "matrix is not square";
   }
   double result = 0, temp_det = 0;
-  S21Matrix tmp_matrix(this->rows_ - 1, this->cols_ - 1);
   if (this->rows_ == 1) {
     result = this->matrix_[0][0];
   } else if (this->rows_ == 2) {
     result = determ_two();
   } else {
+    S21Matrix tmp_matrix(this->rows_ - 1, this->cols_ - 1);
     for (int i = 0; i < this->rows_; i++) {
       temp_det = 0;
       tmp_matrix = minor_matr(i, 0);
@@ -296,11 +259,12 @@ S21Matrix S21Matrix::InverseMatrix() {
   if (fabs(det) < 1e-7) {
     throw "determinant is zero";
   }
-  S21Matrix matrix_calc;
-  S21Matrix result;
+  S21Matrix result(1, 1);
   if (this->cols_ == 1) {
     result.matrix_[0][0] = 1.0 / det;
+
   } else {
+    S21Matrix matrix_calc;
     matrix_calc = this->CalcComplements();
     result = matrix_calc.Transpose();
     result.MulNumber(1.0 / det);
@@ -350,7 +314,7 @@ void S21Matrix::operator*=(const S21Matrix &other) {
 
 void S21Matrix::operator*=(const double num) { return this->MulNumber(num); }
 
-double S21Matrix::operator()(int i, int j) {
+double &S21Matrix::operator()(int i, int j) {
   if (this->matrix_ == nullptr) {
     throw "not a matrix";
   }
