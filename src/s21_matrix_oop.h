@@ -1,5 +1,5 @@
-#ifndef SRC_S21_MATRIX_OOP_H_
-#define SRC_S21_MATRIX_OOP_H_
+#ifndef CPP1_S21_MATRIXPLUS_1_SRC_S21_MATRIX_OOP_H_
+#define CPP1_S21_MATRIXPLUS_1_SRC_S21_MATRIX_OOP_H_
 
 #include <algorithm>
 #include <cmath>
@@ -10,7 +10,7 @@ class S21Matrix {
   // Attributes
   int rows_, cols_;  // Rows and columns
   double **matrix_;  // Pointer to the memory where the matrix is allocated
-  // sub funcs
+  // supporting functions
   double determ_two();
   void NewMatrix(int rows, int cols);
   void CopyMatrix(double **matrix);
@@ -58,4 +58,4 @@ class S21Matrix {
   double &operator()(int i, int j);
 };
 
-#endif  // SRC_S21_MATRIX_OOP_H_
+#endif  // CPP1_S21_MATRIXPLUS_1_SRC_S21_MATRIX_OOP_H_

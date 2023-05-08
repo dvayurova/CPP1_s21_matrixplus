@@ -16,7 +16,7 @@ void S21Matrix::SetRows(int rows) {
 }
 void S21Matrix::SetCols(int cols) {
   if (cols <= 0) {
-    throw "rows should be more than zero";
+    throw "columns should be more than zero";
   }
   S21Matrix tmp(this->rows_, cols);
   for (int i = 0; i < this->rows_; i++) {
