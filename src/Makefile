@@ -1,6 +1,6 @@
 .PHONY: all s21_matrix_oop.a test gcov_report check rebuild clean test.o memcheck
 CC = g++
-CFLAGS = -Wall -Werror -Wextra -std=c++17 -g
+CFLAGS = -Wall -Werror -Wextra -std=c++17
 GCOVFLAGS =  -fprofile-arcs -ftest-coverage 
 LC = lcov -c -d .
 C_FILES = s21_matrix_oop.cc
